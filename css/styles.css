@@ -160,31 +160,46 @@ body {
 }
 
 /* Imágen de producto y badges flotantes */
+/* el contenedor abraza la imagen y sirve de ancla para el brillo */
 .product-image-container {
     padding: 20px;
+    display: inline-block;
+    position: relative; /* súper importante para retener al .glow-bg */
 }
 
-.product-img {
-    border: 2px solid rgba(0, 242, 254, 0.3);
-    max-height: 420px;
-    object-fit: cover;
-    width: 100%;
-}
-
+/* el brillo de fondo */
 .glow-bg {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 80%;
-    height: 80%;
+    width: 100%; /* lo subí a 100% para que llene el contenedor */
+    height: 100%;
     background: radial-gradient(circle, rgba(0, 242, 254, 0.25) 0%, transparent 70%);
-    z-index: 0;
+    z-index: 0; /* queda al fondo */
+}
+
+/* la imagen por defecto (móviles) */
+.product-img {
+    position: relative; /* necesario para que el z-index funcione */
+    z-index: 1; /* queda por encima del brillo */
+    border: 2px solid rgba(0, 242, 254, 0.3);
+    max-height: 420px; /* tamaño para celular */
+    max-width: 100%; /* asegura que el div se ajuste a la imagen sin salirse de la pantalla */
+    display: block; 
+}
+
+/* tamaño para pc (pantallas de 768px en adelante) */
+@media (min-width: 768px) {
+    .product-img {
+        max-height: 70vh; /* crecerá hasta ocupar el 70% del alto de la pantalla del pc */
+        /* si prefieres un tamaño fijo, cámbialo por max-height: 600px; por ejemplo */
+    }
 }
 
 .floating-badge {
     position: absolute;
-    background: rgba(15, 23, 42, 0.95);
+    background: rgba(18, 54, 138, 0.699);
     border: 1px solid rgba(255, 255, 255, 0.15);
     padding: 10px 16px;
     border-radius: 12px;
@@ -197,13 +212,13 @@ body {
 }
 
 .badge-1 {
-    top: 10%;
-    left: 0;
+    top: 8%;
+    left: 0%;
 }
 
 .badge-2 {
-    bottom: 10%;
-    right: 0;
+    bottom: 8%;
+    right: 0%;
 }
 
 /* Componentes y Tarjetas */
